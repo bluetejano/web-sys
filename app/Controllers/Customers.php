@@ -2,46 +2,93 @@
 
 namespace App\Controllers;
 
+use App\Models\CustomerModel;
+
 class Customers extends BaseController
 {
+    protected $customerModel;
+
+    public function __construct()
+    {
+        $this->customerModel = new CustomerModel();
+    }
+
     public function index()
     {
-        $customers = [
-            [
-                'id' => 1,
-                'name' => 'Maria Santos',
-                'email' => 'maria@example.com',
-                'phone' => '09171234567'
-            ],
-            [
-                'id' => 2,
-                'name' => 'John Reyes',
-                'email' => 'john@example.com',
-                'phone' => '09182345678'
-            ],
-            [
-                'id' => 3,
-                'name' => 'Angela Cruz',
-                'email' => 'angela@example.com',
-                'phone' => '09193456789'
-            ],
-            [
-                'id' => 4,
-                'name' => 'Daniel Garcia',
-                'email' => 'daniel@example.com',
-                'phone' => '09204567891'
-            ],
-            [
-                'id' => 5,
-                'name' => 'Sofia Mendoza',
-                'email' => 'sofia@example.com',
-                'phone' => '09215678912'
-            ]
+        $data['customers'] = $this->customerModel->findAll();
+
+        return view('customers/index', $data);
+    }
+
+    public function new()
+    {
+        return view('customers/new');
+    }
+
+    public function create()
+    {
+        $rules = [
+            'name' => 'required|max_length[100]',
+            'email' => 'required|valid_email|max_length[100]'
         ];
 
-        return view('customers', [
-            'title' => 'Customer Accounts',
-            'customers' => $customers
+        if (!$this->validate($rules)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        $this->customerModel->insert([
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
+            'phone' => $this->request->getPost('phone'),
+            'address' => $this->request->getPost('address')
         ]);
+
+        return redirect()->to('/customers');
+    }
+
+    public function edit($id)
+    {
+        $customer = $this->customerModel->find($id);
+
+        if (!$customer) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(
+                'Customer not found.'
+            );
+        }
+
+        return view('customers/edit', ['customer' => $customer]);
+    }
+
+    public function update($id)
+    {
+        $customer = $this->customerModel->find($id);
+
+        if (!$customer) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(
+                'Customer not found.'
+            );
+        }
+
+        $rules = [
+            'name' => 'required|max_length[100]',
+            'email' => 'required|valid_email|max_length[100]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        $this->customerModel->update($id, [
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
+            'phone' => $this->request->getPost('phone'),
+            'address' => $this->request->getPost('address')
+        ]);
+
+        return redirect()->to('/customers');
     }
 }

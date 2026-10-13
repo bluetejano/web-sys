@@ -1,55 +1,129 @@
-<div class="dashboard">
-    <p class="welcome-label">WELCOME BACK</p>
-    <h1>Your POS Dashboard</h1>
-    <p>Manage your customer and staff records in one place.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>POS System</title>
 
-    <section class="overview">
-        <h2>Management Overview</h2>
-        <p>Quick access to your system pages.</p>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    background: #fff0f5;
+    margin: 0;
+    padding: 40px;
+}
 
-        <div class="dashboard-cards">
-            <a href="<?= site_url('customers') ?>" class="dashboard-card">
-                <span class="card-icon">♙</span>
-                <h3>Total Customer Records</h3>
-                <p class="card-number">05</p>
-                <span>View customer accounts →</span>
-            </a>
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
 
-            <a href="<?= site_url('users') ?>" class="dashboard-card">
-                <span class="card-icon">♧</span>
-                <h3>Total User Records</h3>
-                <p class="card-number">05</p>
-                <span>View staff accounts →</span>
-            </a>
+h1 {
+    text-align: center;
+    color: #d63384;
+    margin-bottom: 10px;
+}
 
-            <a href="<?= site_url('about') ?>" class="dashboard-card">
-                <span class="card-icon">ⓘ</span>
-                <h3>System Information</h3>
-                <p class="card-number">About</p>
-                <span>Learn about this system →</span>
-            </a>
-        </div>
-    </section>
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+}
 
-    <section class="overview">
-        <h2>Quick Navigation</h2>
-        <p>Select a page to get started.</p>
+.section-title {
+    text-align: center;
+    color: #d63384;
+    margin-bottom: 25px;
+}
 
-        <div class="dashboard-cards">
-            <a href="<?= site_url('customers') ?>" class="dashboard-card">
-                <h3>Customer Accounts</h3>
-                <p>View customer names, emails, and phone numbers.</p>
-            </a>
+.cards,
+.navigation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 50px;
+}
 
-            <a href="<?= site_url('users') ?>" class="dashboard-card">
-                <h3>User Accounts</h3>
-                <p>View staff usernames, names, and roles.</p>
-            </a>
+.card,
+.nav-card {
+    background: #ffffff;
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(214, 51, 132, 0.15);
+    border: 2px solid #ffd6e8;
+    transition: all 0.2s ease;
+}
 
-            <a href="<?= site_url('about') ?>" class="dashboard-card">
-                <h3>About This Project</h3>
-                <p>Read the purpose and technologies used.</p>
-            </a>
-        </div>
-    </section>
+.card:hover,
+.nav-card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3,
+.nav-card h3 {
+    color: #d63384;
+}
+
+.number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #ff69b4;
+    margin: 15px 0;
+}
+
+.card a,
+.nav-card a {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #ff69b4;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.card a:hover,
+.nav-card a:hover {
+    background: #d63384;
+}
+
+.nav-card p {
+    color: #666;
+    line-height: 1.5;
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Point of Sale</h1>
+
+    <p class="subtitle">
+        Manage your customer and staff records in one place.
+    </p>
+
+
+<h2 class="section-title">Quick Navigation</h2>
+
+<div class="navigation">
+
+    <div class="nav-card">
+        <h3>Customer Accounts</h3>
+        <p>View customer names, emails, and phone numbers.</p>
+        <a href="/customers">Open</a>
+    </div>
+
+    <div class="nav-card">
+        <h3>User Accounts</h3>
+        <p>View staff usernames, names, and roles.</p>
+        <a href="/users">Open</a>
+    </div>
+
+    <div class="nav-card">
+        <h3>About This Project</h3>
+        <p>Read the purpose and technologies used.</p>
+        <a href="/about">Open</a>
+    </div>
+
 </div>
